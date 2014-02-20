@@ -1,0 +1,19 @@
+{
+  "name": "iot",
+  "version": "0.0.1",
+  "authors": [
+    "Tomer Weller <tomer.weller@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "*",
+    "jquery": "*"
+  }
+}

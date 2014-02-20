@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>IOT</title>
+
+    <!-- Bootstrap -->
+    <link href="components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="container">
+    <h1>IOT</h1>
+    <hr/>
+    <form class="form-horizontal" role="form">
+        <div class="form-group">
+            <label for="inputIf" class="col-xs-2 control-label">IF</label>
+            <div class="col-xs-5">
+                <select id="inputIf" class="form-control">
+                    <option>SPEED</option>
+                    <option>TEMP</option>
+                    <option>BLA</option>
+                </select>
+            </div>
+            <label for="inputIf" class="col-xs-1 control-label">></label>
+            <div class="col-xs-4">
+                <input type="number" class="form-control" id="inputthat" placeholder="that">
+            </div>
+            <hr/>
+            <label for="inputThen" class="col-xs-2 control-label">THEN</label>
+            <div class="col-xs-5">
+                <select id="inputThen" class="form-control">
+                    <option>LED1</option>
+                    <option>LED2</option>
+                </select>
+            </div>
+            <label for="inputIf" class="col-xs-1 control-label"></label>
+            <div class="col-xs-4">
+                <select id="inputMode" class="form-control">
+                    <option>ON</option>
+                    <option>OFF</option>
+                </select>
+            </div>
+        </div>
+    </form>
+    <button id="doButton" type="button" class="btn btn-primary btn-lg" style="width: 100%">DO IT!</button>
+    <hr/>
+    <h2>Device Orientation</h2>
+    <table>
+        <tr>
+            <td>Tilt Left/Right [gamma] : </td>
+            <td id="doTiltLR"></td>
+        </tr>
+        <tr>
+            <td>Tilt Front/Back [beta] : </td>
+            <td id="doTiltFB"></td>
+        </tr>
+        <tr>
+            <td>Direction [alpha] : </td>
+            <td id="doDirection"></td>
+        </tr>
+    </table>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="components/jquery/dist/jquery.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+    function init() {
+        if (window.DeviceOrientationEvent) {
+            // Listen for the deviceorientation event and handle the raw data
+            window.addEventListener('deviceorientation', function(eventData) {
+                // gamma is the left-to-right tilt in degrees, where right is positive
+                var tiltLR = eventData.gamma;
+
+                // beta is the front-to-back tilt in degrees, where front is positive
+                var tiltFB = eventData.beta;
+
+                // alpha is the compass direction the device is facing in degrees
+                var dir = eventData.alpha
+
+                // call our orientation event handler
+                deviceOrientationHandler(tiltLR, tiltFB, dir);
+            }, false);
+        }
+
+        $("#doButton").click(function(){
+            doIt();
+        });
+    }
+
+    function deviceOrientationHandler(tiltLR, tiltFB, dir) {
+        $("#doTiltLR").html(Math.round(tiltLR));
+        $("#doTiltFB").html(Math.round(tiltFB));
+        $("#doDirection").html(Math.round(dir));
+    }
+
+    function doIt(){
+        var settings = {
+            "this" : $("#inputIf").val(),
+            "value" : $("#inputthat").val(),
+            "then" : $("#inputThen").val(),
+            "mode" : $("#inputMode").val()
+        };
+        console.log("Settings:", settings);
+    }
+
+    init();
+</script>
+
+
+
+</body>
+</html>
